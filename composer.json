@@ -1,0 +1,19 @@
+{
+    "name": "dxw/cidr",
+    "description": "CIDR functions",
+    "homepage": "https://github.com/dxw/cidr",
+    "type": "library",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Tom Adams",
+            "email": "tom@dxw.com",
+            "homepage": "http://dxw.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Missing": "src/"
+        }
+    }
+}
