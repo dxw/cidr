@@ -28,6 +28,6 @@ class IPv4 {
       $i *= 256;
     }
 
-    return $int;
+    return [$int, null];
   }
 }
