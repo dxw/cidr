@@ -25,7 +25,7 @@ class IPv4 {
 
       $int += $num * $i;
 
-      $i *= 256;
+      $i = $i << 8;
     }
 
     return [$int, null];
