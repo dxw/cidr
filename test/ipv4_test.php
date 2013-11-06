@@ -45,4 +45,22 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
     $this->assertEquals($ip, '192.168.1.1');
     $this->assertEquals($netmask, \CIDR\IPv4::addr_to_int('128.0.0.0')[0]);
   }
+
+  function testMatch() {
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.1');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, true);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.255');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, true);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/0', '127.0.0.1');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, true);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.2.1');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, false);
+  }
 }

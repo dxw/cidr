@@ -54,4 +54,29 @@ class IPv4 {
 
     return [$ip, $_netmask, null];
   }
+
+  static function match($block, $addr) {
+    list($haystack_s, $netmask, $err) = self::block_to_ip_and_netmask($block);
+    if ($err !== null) {
+      return [null, $err];
+    }
+
+    list($haystack, $err) = self::addr_to_int($haystack_s);
+    if ($err !== null) {
+      return [null, $err];
+    }
+
+    list($needle, $err) = self::addr_to_int($addr);
+    if ($err !== null) {
+      return [null, $err];
+    }
+
+    $haystack_masked = $haystack & $netmask;
+    $needle_masked = $haystack & $netmask;
+
+    $match = $haystack_masked === $needle_masked;
+    echo(json_encode([$block, $addr, decbin($netmask), decbin($haystack_masked), decbin($needle_masked), $match])."<br>\n");
+
+    return [$match, null];
+  }
 }
