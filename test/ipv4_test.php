@@ -42,7 +42,17 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
   }
 
   function testNetmask() {
-    $this->markTestIncomplete();
+    list($netmask, $err) = \CIDR\IPv4::netmask(24);
+    $this->assertEquals($err, null);
+    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('255.255.255.0')[0]);
+
+    list($netmask, $err) = \CIDR\IPv4::netmask(0);
+    $this->assertEquals($err, null);
+    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('0.0.0.0')[0]);
+
+    list($netmask, $err) = \CIDR\IPv4::netmask(1);
+    $this->assertEquals($err, null);
+    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('128.0.0.0')[0]);
   }
 
   function testMatchGeneratesErrors() {
