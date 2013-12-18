@@ -59,9 +59,18 @@ class IPv4 {
     }
 
     if ($haystack_netmask === null) {
+
       return [$_haystack_addr === $_needle, null];
+
     } else {
-      list($_haystack_netmask, $err) = self::netmask((int)$haystack_netmask);
+
+      // Make sure string is valid int
+      $haystack_netmask_i = (int)$haystack_netmask;
+      if ($haystack_netmask !== (string)$haystack_netmask_i) {
+        return [null, true];
+      }
+
+      list($_haystack_netmask, $err) = self::netmask($haystack_netmask_i);
       if ($err !== null) {
         return [null, $err];
       }

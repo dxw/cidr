@@ -64,6 +64,9 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
 
     list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.991');
     $this->assertEquals($err, true);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/abc', '192.168.1.1');
+    $this->assertEquals($err, true);
   }
 
   function testMatch() {
