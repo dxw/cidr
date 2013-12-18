@@ -30,38 +30,19 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
     $this->assertEquals($int, 0b00000000000000000000000100000001);
   }
 
-  function testBlockToIpAndNetmaskGeneratesErrors() {
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask(123);
+  function testNetmaskGeneratesErrors() {
+    list($netmask, $err) = \CIDR\IPv4::netmask(129);
     $this->assertEquals($err, true);
 
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('127.0.0.1');
+    list($netmask, $err) = \CIDR\IPv4::netmask('123');
     $this->assertEquals($err, true);
 
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('127.0.0.1/129');
-    $this->assertEquals($err, true);
-
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('256.0.0.1/129');
-    $this->assertEquals($err, true);
-
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('127.0.0.0.1/129');
+    list($netmask, $err) = \CIDR\IPv4::netmask('abc');
     $this->assertEquals($err, true);
   }
 
-  function testBlockToIpAndNetmask() {
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('192.168.1.1/24');
-    $this->assertEquals($err, null);
-    $this->assertEquals($ip, '192.168.1.1');
-    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('255.255.255.0')[0]);
-
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('192.168.1.1/0');
-    $this->assertEquals($err, null);
-    $this->assertEquals($ip, '192.168.1.1');
-    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('0.0.0.0')[0]);
-
-    list($ip, $netmask, $err) = \CIDR\IPv4::blockToIpAndNetmask('192.168.1.1/1');
-    $this->assertEquals($err, null);
-    $this->assertEquals($ip, '192.168.1.1');
-    $this->assertEquals($netmask, \CIDR\IPv4::addrToInt('128.0.0.0')[0]);
+  function testNetmask() {
+    $this->markTestIncomplete();
   }
 
   function testMatchGeneratesErrors() {
@@ -91,5 +72,13 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
     list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.2.1');
     $this->assertEquals($err, null);
     $this->assertEquals($match, false);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1', '192.168.2.1');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, false);
+
+    list($match, $err) = \CIDR\IPv4::match('192.168.1.1', '192.168.1.1');
+    $this->assertEquals($err, null);
+    $this->assertEquals($match, true);
   }
 }

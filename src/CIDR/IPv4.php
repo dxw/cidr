@@ -31,51 +31,47 @@ class IPv4 {
     return [$int, null];
   }
 
-  static function blockToIpAndNetmask($block) {
-    $split = explode('/', $block);
-
-    if (count($split) !== 2) {
-      return ['', 0, true];
+  static function netmask($i) {
+    if (!is_int($i)) {
+      return [0, true];
     }
 
-    $ip = $split[0];
-    $netmask = (int)$split[1];
-
-    if ($netmask < 0 || $netmask > 32) {
-      return ['', 0, true];
+    if ($i < 0 || $i > 32) {
+      return [0, true];
     }
 
-    // 0 => 00000000000000000000000000000000
-    // 1 => 10000000000000000000000000000000
-    // 2 => 11000000000000000000000000000000
-    // 3 => 11100000000000000000000000000000
-    // etc
-    $_netmask = pow(2, $netmask)-1 << (32-$netmask);
+    $netmask = pow(2, $i)-1 << (32-$i);
 
-    return [$ip, $_netmask, null];
+    return [$netmask, null];
   }
 
-  static function match($block, $addr) {
-    list($haystack_s, $netmask, $err) = self::blockToIpAndNetmask($block);
+  static function match($haystack, $needle) {
+    list($haystack_addr, $haystack_netmask) = explode('/', $haystack);
+
+    list($_haystack_addr, $err) = self::addrToInt($haystack_addr);
     if ($err !== null) {
       return [null, $err];
     }
 
-    list($haystack, $err) = self::addrToInt($haystack_s);
+    list($_needle, $err) = self::addrToInt($needle);
     if ($err !== null) {
       return [null, $err];
     }
 
-    list($needle, $err) = self::addrToInt($addr);
-    if ($err !== null) {
-      return [null, $err];
+    if ($haystack_netmask === null) {
+      return [$_haystack_addr === $_needle, null];
+    } else {
+      list($_haystack_netmask, $err) = self::netmask((int)$haystack_netmask);
+      if ($err !== null) {
+        return [null, $err];
+      }
+
+      $haystack_masked = $_haystack_addr & $_haystack_netmask;
+      $needle_masked = $_needle & $_haystack_netmask;
+
+      $match = $haystack_masked === $needle_masked;
+
+      return [$match, null];
     }
-
-    $haystack_masked = $haystack & $netmask;
-    $needle_masked = $needle & $netmask;
-
-    $match = $haystack_masked === $needle_masked;
-
-    return [$match, null];
   }
 }
