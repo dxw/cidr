@@ -3,7 +3,7 @@
 namespace CIDR;
 
 class IPv4 {
-  static function addr_to_int($addr) {
+  static function addrToInt($addr) {
     if (!is_string($addr)) {
       return [0, true];
     }
@@ -31,7 +31,7 @@ class IPv4 {
     return [$int, null];
   }
 
-  static function block_to_ip_and_netmask($block) {
+  static function blockToIpAndNetmask($block) {
     $split = explode('/', $block);
 
     if (count($split) !== 2) {
@@ -56,17 +56,17 @@ class IPv4 {
   }
 
   static function match($block, $addr) {
-    list($haystack_s, $netmask, $err) = self::block_to_ip_and_netmask($block);
+    list($haystack_s, $netmask, $err) = self::blockToIpAndNetmask($block);
     if ($err !== null) {
       return [null, $err];
     }
 
-    list($haystack, $err) = self::addr_to_int($haystack_s);
+    list($haystack, $err) = self::addrToInt($haystack_s);
     if ($err !== null) {
       return [null, $err];
     }
 
-    list($needle, $err) = self::addr_to_int($addr);
+    list($needle, $err) = self::addrToInt($addr);
     if ($err !== null) {
       return [null, $err];
     }
