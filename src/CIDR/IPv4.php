@@ -72,10 +72,9 @@ class IPv4 {
     }
 
     $haystack_masked = $haystack & $netmask;
-    $needle_masked = $haystack & $netmask;
+    $needle_masked = $needle & $netmask;
 
     $match = $haystack_masked === $needle_masked;
-    echo(json_encode([$block, $addr, decbin($netmask), decbin($haystack_masked), decbin($needle_masked), $match])."<br>\n");
 
     return [$match, null];
   }
