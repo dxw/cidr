@@ -46,7 +46,10 @@ class IPv4 {
   }
 
   static function match($haystack, $needle) {
-    list($haystack_addr, $haystack_netmask) = explode('/', $haystack);
+    $a = explode('/', $haystack);
+
+    $haystack_addr = $a[0];
+    $haystack_netmask = count($a) > 1 ? $a[1] : null;
 
     list($_haystack_addr, $err) = self::addrToInt($haystack_addr);
     if ($err !== null) {
