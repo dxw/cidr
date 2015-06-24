@@ -8,24 +8,10 @@ class IPv4 {
       return [0, true];
     }
 
-    $numbers = explode('.', $addr);
-    if (count($numbers) !== 4) {
+    $int = ip2long($addr);
+
+    if ($int === false) {
       return [0, true];
-    }
-
-    $int = 0;
-    $i = 1;
-
-    foreach (array_reverse($numbers) as $num) {
-      $num = (int)$num;
-
-      if ($num > 255) {
-        return [0, true];
-      }
-
-      $int += $num * $i;
-
-      $i = $i << 8;
     }
 
     return [$int, null];
