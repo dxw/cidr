@@ -2,9 +2,9 @@
 
 namespace CIDR;
 
-class IPv4 extends IPGeneric {
+class IPv6 extends IPGeneric {
   function __construct() {
-    $this->bits = 32;
+    $this->bits = 128;
   }
 
   function addrToInt($addr) {

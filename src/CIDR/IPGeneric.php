@@ -10,11 +10,11 @@ abstract class IPGeneric {
       return [0, true];
     }
 
-    if ($i < 0 || $i > 32) {
+    if ($i < 0 || $i > $this->bits) {
       return [0, true];
     }
 
-    $netmask = pow(2, $i)-1 << (32-$i);
+    $netmask = pow(2, $i)-1 << ($this->bits-$i);
 
     return [$netmask, null];
   }
