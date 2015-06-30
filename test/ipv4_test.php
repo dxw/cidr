@@ -5,12 +5,12 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
     $matrix = [
       '0.0.00',
       '0.0.0.256',
-      ["passing an array"],
+      ['passing an array'],
     ];
 
     foreach ($matrix as $addr) {
       list($int, $err) = (new \CIDR\IPv4)->addrToInt($addr);
-      $this->assertEquals($err, true);
+      $this->assertEquals(true, $err, $addr);
     }
   }
 
@@ -24,8 +24,8 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
 
     foreach ($matrix as $row) {
       list($int, $err) = (new \CIDR\IPv4)->addrToInt($row[0]);
-      $this->assertEquals($err, null);
-      $this->assertEquals($int, $row[1]);
+      $this->assertEquals(null, $err, json_encode($row));
+      $this->assertEquals($row[1], $int, json_encode($row));
     }
   }
 
@@ -38,7 +38,7 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
 
     foreach ($matrix as $netmask) {
       list($netmask, $err) = (new \CIDR\IPv4)->netmask($netmask);
-      $this->assertEquals($err, true);
+      $this->assertEquals(true, $err, $netmask);
     }
   }
 
@@ -49,11 +49,10 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
       [1, '128.0.0.0'],
     ];
 
-
     foreach ($matrix as $row) {
       list($netmask, $err) = (new \CIDR\IPv4)->netmask($row[0]);
-      $this->assertEquals($err, null);
-      $this->assertEquals($netmask, (new \CIDR\IPv4)->addrToInt($row[1])[0]);
+      $this->assertEquals(null, $err, json_encode($row));
+      $this->assertEquals((new \CIDR\IPv4)->addrToInt($row[1])[0], $netmask, json_encode($row));
     }
   }
 
@@ -67,7 +66,7 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
 
     foreach ($matrix as $row) {
       list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-      $this->assertEquals($err, true);
+      $this->assertEquals(true, $err, json_encode($row));
     }
   }
 
@@ -83,8 +82,8 @@ class IPv4Test extends PHPUnit_Framework_TestCase {
 
     foreach ($matrix as $row) {
       list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-      $this->assertEquals($err, null);
-      $this->assertEquals($match, $row[2]);
+      $this->assertEquals(null, $err, json_encode($row));
+      $this->assertEquals($row[2], $match, json_encode($row));
     }
   }
 }
