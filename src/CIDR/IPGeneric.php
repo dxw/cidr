@@ -20,6 +20,11 @@ abstract class IPGeneric {
     return [$netmask, null];
   }
 
+  static function valid($addr) {
+    list($_addr, $err) = (new static)->addrToInt($addr);
+    return $err === null;
+  }
+
   static function match($haystack, $needle) {
     $a = explode('/', $haystack);
 
