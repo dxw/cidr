@@ -11,8 +11,8 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $addr) {
-            list($int, $err) = \CIDR\IPv4::addrToInt($addr);
-            $this->assertEquals($err, true);
+            $result = \CIDR\IPv4::addrToInt($addr);
+            $this->assertTrue($result->isErr());
         }
     }
 
@@ -26,9 +26,9 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($int, $err) = \CIDR\IPv4::addrToInt($row[0]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($int, $row[1]);
+            $result = \CIDR\IPv4::addrToInt($row[0]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals($row[1], $result->unwrap());
         }
     }
 
@@ -41,8 +41,8 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $netmask) {
-            list($netmask, $err) = \CIDR\IPv4::netmask($netmask);
-            $this->assertEquals($err, true);
+            $result = \CIDR\IPv4::netmask($netmask);
+            $this->assertTrue($result->isErr());
         }
     }
 
@@ -55,9 +55,9 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($netmask, $err) = \CIDR\IPv4::netmask($row[0]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($netmask, \CIDR\IPv4::addrToInt($row[1])[0]);
+            $result = \CIDR\IPv4::netmask($row[0]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals(\CIDR\IPv4::addrToInt($row[1])->unwrap(), $result->unwrap());
         }
     }
 
@@ -71,8 +71,8 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-            $this->assertEquals($err, true);
+            $result = \CIDR\IPv4::match($row[0], $row[1]);
+            $this->assertTrue($result->isErr());
         }
     }
 
@@ -88,9 +88,9 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($match, $row[2]);
+            $result = \CIDR\IPv4::match($row[0], $row[1]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals($row[2], $result->unwrap());
         }
     }
 }
