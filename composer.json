@@ -17,6 +17,10 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "4.8.*"
+        "phpunit/phpunit": "4.8.*",
+        "fabpot/php-cs-fixer": "1.11.4"
+    },
+    "require": {
+        "nikita2206/result": "^0.1.0"
     }
 }
