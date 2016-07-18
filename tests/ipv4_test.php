@@ -5,14 +5,18 @@ class IPv4Test extends PHPUnit_Framework_TestCase
     public function testToIntGeneratesErrors()
     {
         $matrix = [
-            '0.0.00',
-            '0.0.0.256',
-            ['passing an array'],
+            ['0.0.00', 'ip2long returned error'],
+            ['0.0.0.256', 'ip2long returned error'],
+            [['passing an array'], 'not a string'],
         ];
 
-        foreach ($matrix as $addr) {
+        foreach ($matrix as $row) {
+            $addr = $row[0];
+            $msg = $row[1];
+
             $result = \CIDR\IPv4::addrToInt($addr);
             $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 
@@ -35,14 +39,18 @@ class IPv4Test extends PHPUnit_Framework_TestCase
     public function testNetmaskGeneratesErrors()
     {
         $matrix = [
-            129,
-            '123',
-            'abc',
+            [129, '$i out of range'],
+            ['123', '$i not of type int'],
+            ['abc', '$i not of type int'],
         ];
 
-        foreach ($matrix as $netmask) {
+        foreach ($matrix as $row) {
+            $netmask = $row[0];
+            $msg = $row[1];
+
             $result = \CIDR\IPv4::netmask($netmask);
             $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 
@@ -64,15 +72,20 @@ class IPv4Test extends PHPUnit_Framework_TestCase
     public function testMatchGeneratesErrors()
     {
         $matrix = [
-            ['192.168.1.1/224',  '192.168.1.1'],
-            ['192.168.1.991/24', '192.168.1.1'],
-            ['192.168.1.1/24',   '192.168.1.991'],
-            ['192.168.1.1/abc',  '192.168.1.1'],
+            ['192.168.1.1/224',  '192.168.1.1', 'netmask portion of $haystack invalid: $i out of range'],
+            ['192.168.1.991/24', '192.168.1.1', 'address portion of $haystack invalid: ip2long returned error'],
+            ['192.168.1.1/24',   '192.168.1.991', '$needle invalid: ip2long returned error'],
+            ['192.168.1.1/abc',  '192.168.1.1', '$haystack contains invalid netmask'],
         ];
 
         foreach ($matrix as $row) {
-            $result = \CIDR\IPv4::match($row[0], $row[1]);
+            $haystack = $row[0];
+            $needle = $row[1];
+            $msg = $row[2];
+            $result = \CIDR\IPv4::match($haystack, $needle);
+
             $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 

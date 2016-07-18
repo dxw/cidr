@@ -7,13 +7,13 @@ class IPv4
     public static function addrToInt($addr)
     {
         if (!is_string($addr)) {
-            return \Result\Result::err('');
+            return \Result\Result::err('not a string');
         }
 
         $int = ip2long($addr);
 
         if ($int === false) {
-            return \Result\Result::err('');
+            return \Result\Result::err('ip2long returned error');
         }
 
         return \Result\Result::ok($int);
@@ -22,11 +22,11 @@ class IPv4
     public static function netmask($i)
     {
         if (!is_int($i)) {
-            return \Result\Result::err('');
+            return \Result\Result::err('$i not of type int');
         }
 
         if ($i < 0 || $i > 32) {
-            return \Result\Result::err('');
+            return \Result\Result::err('$i out of range');
         }
 
         $netmask = pow(2, $i) - 1 << (32 - $i);
@@ -43,13 +43,13 @@ class IPv4
 
         $result = self::addrToInt($haystack_addr);
         if ($result->isErr()) {
-            return $result;
+            return \Result\Result::err(sprintf('address portion of $haystack invalid: %s', $result->getErr()));
         }
         $_haystack_addr = $result->unwrap();
 
         $result = self::addrToInt($needle);
         if ($result->isErr()) {
-            return $result;
+            return \Result\Result::err(sprintf('$needle invalid: %s', $result->getErr()));
         }
         $_needle = $result->unwrap();
 
@@ -60,12 +60,12 @@ class IPv4
             // Make sure string is valid int
             $haystack_netmask_i = (int) $haystack_netmask;
             if ($haystack_netmask !== (string) $haystack_netmask_i) {
-                return \Result\Result::err('');
+                return \Result\Result::err('$haystack contains invalid netmask');
             }
 
             $result = self::netmask($haystack_netmask_i);
             if ($result->isErr()) {
-                return $result;
+                return \Result\Result::err(sprintf('netmask portion of $haystack invalid: %s', $result->getErr()));
             }
             $_haystack_netmask = $result->unwrap();
 
