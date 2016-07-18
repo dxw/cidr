@@ -4,7 +4,7 @@ PHP CIDR library (IPv4-only at the moment)
 
 ## Installation
 
-    composer require dxw/cidr=dev-master
+    composer require dxw/cidr
 
 ## API
 
