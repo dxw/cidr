@@ -52,8 +52,8 @@ class IPv4Range
 
     private function bitwiseAnd(string $a, string $b): string
     {
-        $aArray = unpack('N*', $a);
-        $bArray = unpack('N*', $b);
+        $aArray = unpack('C*', $a);
+        $bArray = unpack('C*', $b);
 
         if (count($aArray) !== count($bArray)) {
             trigger_error(E_USER_FATAL, 'oh no');
@@ -62,9 +62,9 @@ class IPv4Range
         $cArray = [];
 
         for ($i = 1 ; $i <= count($aArray); $i++) {
-            $cArray[] = $aArray[$i] & $bArray[$i];
+            $cArray[$i] = $aArray[$i] & $bArray[$i];
         }
 
-        return pack('N*', $cArray[0]);
+        return call_user_func_array('pack', array_merge(['C*'], $cArray));
     }
 }
