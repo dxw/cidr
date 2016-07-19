@@ -21,6 +21,6 @@
         "fabpot/php-cs-fixer": "1.11.4"
     },
     "require": {
-        "nikita2206/result": "^0.1.0"
+        "dxw/result": "^1.0"
     }
 }

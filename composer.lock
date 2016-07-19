@@ -4,33 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ac873a7222a4bf7780cf753f68bdf09",
-    "content-hash": "0860bba22ab9ec59ab96079b1aecbbd1",
+    "hash": "e570bb78a9e9bfa10115fb49e661d2b8",
+    "content-hash": "4ea787d7d2a88c6df16f079048fa48bd",
     "packages": [
         {
-            "name": "nikita2206/result",
-            "version": "0.1",
+            "name": "dxw/result",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nikita2206/result.git",
-                "reference": "2c800f54ddd05d04a4f41121fa58bdb59d1d2447"
+                "url": "https://github.com/dxw/result.git",
+                "reference": "f4162f94234f3444dcbc1612889f6e2bfabc03ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikita2206/result/zipball/2c800f54ddd05d04a4f41121fa58bdb59d1d2447",
-                "reference": "2c800f54ddd05d04a4f41121fa58bdb59d1d2447",
+                "url": "https://api.github.com/repos/dxw/result/zipball/f4162f94234f3444dcbc1612889f6e2bfabc03ec",
+                "reference": "f4162f94234f3444dcbc1612889f6e2bfabc03ec",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.5"
-            },
             "require-dev": {
-                "phpunit/phpunit": "~4"
+                "fabpot/php-cs-fixer": "1.11.4",
+                "peridot-php/leo": "^1.5",
+                "peridot-php/peridot": "^1.18"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Result\\": "src/"
+                    "Dxw\\Result\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -39,12 +38,14 @@
             ],
             "authors": [
                 {
-                    "name": "Nikita Nefedov",
-                    "email": "inefedor@gmail.com"
+                    "name": "Tom Adams",
+                    "email": "tom@dxw.com",
+                    "homepage": "https://www.dxw.com/"
                 }
             ],
-            "description": "Result data type (just like in Rust)",
-            "time": "2015-10-12 20:14:07"
+            "description": "Result values",
+            "homepage": "https://github.com/dxw/result",
+            "time": "2016-07-19 13:32:11"
         }
     ],
     "packages-dev": [
