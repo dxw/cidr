@@ -28,4 +28,12 @@ class IPv4Block
     {
         return $this->value;
     }
+
+    public function getNetmask(): string
+    {
+        $i = $this->value;
+        $netmask = pow(2, $i) - 1 << (32 - $i);
+
+        return pack('N*', $netmask);
+    }
 }

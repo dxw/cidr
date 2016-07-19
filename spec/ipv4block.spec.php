@@ -24,4 +24,42 @@ describe(\Dxw\CIDR\IPv4Block::class, function () {
             expect($result->getErr())->to->equal('block value too small');
         });
     });
+
+    describe('->getNetmask()', function () {
+        it('returns a binary representation for /32', function () {
+            $block = \Dxw\CIDR\IPv4Block::Make(32)->unwrap();
+
+            expect($block->getNetmask())->to->be->a('string');
+            expect(unpack('H*', $block->getNetmask()))->to->equal([
+                1 => 'ffffffff',
+            ]);
+        });
+
+        it('returns a binary representation for /0', function () {
+            $block = \Dxw\CIDR\IPv4Block::Make(0)->unwrap();
+
+            expect($block->getNetmask())->to->be->a('string');
+            expect(unpack('H*', $block->getNetmask()))->to->equal([
+                1 => '00000000',
+            ]);
+        });
+
+        it('returns a binary representation for /8', function () {
+            $block = \Dxw\CIDR\IPv4Block::Make(8)->unwrap();
+
+            expect($block->getNetmask())->to->be->a('string');
+            expect(unpack('H*', $block->getNetmask()))->to->equal([
+                1 => 'ff000000',
+            ]);
+        });
+
+        it('returns a binary representation for /9', function () {
+            $block = \Dxw\CIDR\IPv4Block::Make(9)->unwrap();
+
+            expect($block->getNetmask())->to->be->a('string');
+            expect(unpack('H*', $block->getNetmask()))->to->equal([
+                1 => 'ff800000',
+            ]);
+        });
+    });
 });

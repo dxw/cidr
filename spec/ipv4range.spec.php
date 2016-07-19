@@ -28,4 +28,27 @@ describe(\Dxw\CIDR\IPv4Range::class, function () {
             expect($result->unwrap()->getBlock()->getValue())->to->equal(8);
         });
     });
+
+    describe('->containsAddress()', function () {
+        it('recognises that 127.0.0.1/8 contains 127.0.0.1', function () {
+            $range = \Dxw\CIDR\IPv4Range::Make('127.0.0.1/8')->unwrap();
+            $address = \Dxw\CIDR\IPv4Address::Make('127.0.0.1')->unwrap();
+
+            expect($range->containsAddress($address))->to->equal(true);
+        });
+
+        it('recognises that 127.0.0.1/8 contains 127.255.255.255', function () {
+            $range = \Dxw\CIDR\IPv4Range::Make('127.0.0.1/8')->unwrap();
+            $address = \Dxw\CIDR\IPv4Address::Make('127.255.255.255')->unwrap();
+
+            expect($range->containsAddress($address))->to->equal(true);
+        });
+
+        it('recognises that 127.0.0.1/8 does not contain 128.0.0.1', function () {
+            $range = \Dxw\CIDR\IPv4Range::Make('127.0.0.1/8')->unwrap();
+            $address = \Dxw\CIDR\IPv4Address::Make('128.255.255.255')->unwrap();
+
+            expect($range->containsAddress($address))->to->equal(false);
+        });
+    });
 });

@@ -37,4 +37,34 @@ class IPv4Range
     {
         return $this->block;
     }
+
+    public function containsAddress(\Dxw\CIDR\IPv4Address $address): bool
+    {
+        $thisAddress = $this->getAddress()->getBinary();
+        $netmask = $this->getBlock()->getNetmask();
+        $otherAddress = $address->getBinary();
+
+        $thisAddressMasked = $this->bitwiseAnd($thisAddress, $netmask);
+        $otherAddressMasked = $this->bitwiseAnd($otherAddress, $netmask);
+
+        return $thisAddressMasked === $otherAddressMasked;
+    }
+
+    private function bitwiseAnd(string $a, string $b): string
+    {
+        $aArray = unpack('N*', $a);
+        $bArray = unpack('N*', $b);
+
+        if (count($aArray) !== count($bArray)) {
+            trigger_error(E_USER_FATAL, 'oh no');
+        }
+
+        $cArray = [];
+
+        for ($i = 1 ; $i <= count($aArray); $i++) {
+            $cArray[] = $aArray[$i] & $bArray[$i];
+        }
+
+        return pack('N*', $cArray[0]);
+    }
 }

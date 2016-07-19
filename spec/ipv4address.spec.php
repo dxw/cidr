@@ -10,4 +10,15 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
             expect($result->unwrap()->__toString())->to->equal('127.0.0.1');
         });
     });
+
+    describe('->getBinary()', function () {
+        it('returns a binary representation', function () {
+            $address = \Dxw\CIDR\IPv4Address::Make('127.0.0.1')->unwrap();
+
+            expect($address->getBinary())->to->be->a('string');
+            expect(unpack('H*', $address->getBinary()))->to->equal([
+                1 => '7f000001',
+            ]);
+        });
+    });
 });

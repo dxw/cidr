@@ -20,4 +20,9 @@ class IPv4Address
     {
         return $this->address;
     }
+
+    public function getBinary(): string
+    {
+        return inet_pton($this->address);
+    }
 }
