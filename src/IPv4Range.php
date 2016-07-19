@@ -9,8 +9,15 @@ class IPv4Range
 
     public static function Make(string $range): \Dxw\Result\Result
     {
-        $address = \Dxw\CIDR\IPv4Address::Make($range);
-        $block = \Dxw\CIDR\IPv4Block::Make(32);
+        if (strpos($range, '/') === false) {
+            $address = \Dxw\CIDR\IPv4Address::Make($range);
+            $block = \Dxw\CIDR\IPv4Block::Make(32);
+        } else {
+            $split = explode('/', $range);
+
+            $address = \Dxw\CIDR\IPv4Address::Make($split[0]);
+            $block = \Dxw\CIDR\IPv4Block::Make($split[1]);
+        }
 
         return \Dxw\Result\Result::ok(new self($address->unwrap(), $block->unwrap()));
     }
