@@ -16,7 +16,7 @@ class IPv4Address
         $this->address = $address;
     }
 
-    public function getAddress(): string
+    public function __toString(): string
     {
         return $this->address;
     }

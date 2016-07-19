@@ -7,7 +7,7 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
 
             expect($result->isErr())->to->equal(false);
             expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv4Address::class);
-            expect($result->unwrap()->getAddress())->to->equal('127.0.0.1');
+            expect($result->unwrap()->__toString())->to->equal('127.0.0.1');
         });
     });
 });

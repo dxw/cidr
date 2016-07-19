@@ -9,7 +9,7 @@ describe(\Dxw\CIDR\IPv4Range::class, function () {
             expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv4Range::class);
 
             expect($result->unwrap()->getAddress())->to->be->instanceof(\Dxw\CIDR\IPv4Address::class);
-            expect($result->unwrap()->getAddress()->getAddress())->to->equal('127.0.0.1');
+            expect($result->unwrap()->getAddress()->__toString())->to->equal('127.0.0.1');
 
             expect($result->unwrap()->getBlock())->to->be->instanceof(\Dxw\CIDR\IPv4Block::class);
             expect($result->unwrap()->getBlock()->getValue())->to->equal(32);
@@ -22,7 +22,7 @@ describe(\Dxw\CIDR\IPv4Range::class, function () {
             expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv4Range::class);
 
             expect($result->unwrap()->getAddress())->to->be->instanceof(\Dxw\CIDR\IPv4Address::class);
-            expect($result->unwrap()->getAddress()->getAddress())->to->equal('127.0.0.1');
+            expect($result->unwrap()->getAddress()->__toString())->to->equal('127.0.0.1');
 
             expect($result->unwrap()->getBlock())->to->be->instanceof(\Dxw\CIDR\IPv4Block::class);
             expect($result->unwrap()->getBlock()->getValue())->to->equal(8);
