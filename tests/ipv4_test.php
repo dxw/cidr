@@ -5,14 +5,18 @@ class IPv4Test extends PHPUnit_Framework_TestCase
     public function testToIntGeneratesErrors()
     {
         $matrix = [
-            '0.0.00',
-            '0.0.0.256',
-            ['passing an array'],
+            ['0.0.00', 'ip2long returned error'],
+            ['0.0.0.256', 'ip2long returned error'],
+            [['passing an array'], 'not a string'],
         ];
 
-        foreach ($matrix as $addr) {
-            list($int, $err) = \CIDR\IPv4::addrToInt($addr);
-            $this->assertEquals($err, true);
+        foreach ($matrix as $row) {
+            $addr = $row[0];
+            $msg = $row[1];
+
+            $result = \CIDR\IPv4::addrToInt($addr);
+            $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 
@@ -26,23 +30,27 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($int, $err) = \CIDR\IPv4::addrToInt($row[0]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($int, $row[1]);
+            $result = \CIDR\IPv4::addrToInt($row[0]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals($row[1], $result->unwrap());
         }
     }
 
     public function testNetmaskGeneratesErrors()
     {
         $matrix = [
-            129,
-            '123',
-            'abc',
+            [129, '$i out of range'],
+            ['123', '$i not of type int'],
+            ['abc', '$i not of type int'],
         ];
 
-        foreach ($matrix as $netmask) {
-            list($netmask, $err) = \CIDR\IPv4::netmask($netmask);
-            $this->assertEquals($err, true);
+        foreach ($matrix as $row) {
+            $netmask = $row[0];
+            $msg = $row[1];
+
+            $result = \CIDR\IPv4::netmask($netmask);
+            $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 
@@ -55,24 +63,29 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($netmask, $err) = \CIDR\IPv4::netmask($row[0]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($netmask, \CIDR\IPv4::addrToInt($row[1])[0]);
+            $result = \CIDR\IPv4::netmask($row[0]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals(\CIDR\IPv4::addrToInt($row[1])->unwrap(), $result->unwrap());
         }
     }
 
     public function testMatchGeneratesErrors()
     {
         $matrix = [
-            ['192.168.1.1/224',  '192.168.1.1'],
-            ['192.168.1.991/24', '192.168.1.1'],
-            ['192.168.1.1/24',   '192.168.1.991'],
-            ['192.168.1.1/abc',  '192.168.1.1'],
+            ['192.168.1.1/224',  '192.168.1.1', 'netmask portion of $haystack invalid: $i out of range'],
+            ['192.168.1.991/24', '192.168.1.1', 'address portion of $haystack invalid: ip2long returned error'],
+            ['192.168.1.1/24',   '192.168.1.991', '$needle invalid: ip2long returned error'],
+            ['192.168.1.1/abc',  '192.168.1.1', '$haystack contains invalid netmask'],
         ];
 
         foreach ($matrix as $row) {
-            list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-            $this->assertEquals($err, true);
+            $haystack = $row[0];
+            $needle = $row[1];
+            $msg = $row[2];
+            $result = \CIDR\IPv4::match($haystack, $needle);
+
+            $this->assertTrue($result->isErr());
+            $this->assertEquals($msg, $result->getErr());
         }
     }
 
@@ -88,9 +101,9 @@ class IPv4Test extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($matrix as $row) {
-            list($match, $err) = \CIDR\IPv4::match($row[0], $row[1]);
-            $this->assertEquals($err, null);
-            $this->assertEquals($match, $row[2]);
+            $result = \CIDR\IPv4::match($row[0], $row[1]);
+            $this->assertFalse($result->isErr());
+            $this->assertEquals($row[2], $result->unwrap());
         }
     }
 }
