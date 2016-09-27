@@ -30,8 +30,9 @@ class IPBlock
         return $this->value;
     }
 
-    private function gmp_shiftl($x,$n) {
-        return(gmp_mul($x,gmp_pow(2,$n)));
+    private function gmp_shiftl($x, $n)
+    {
+        return(gmp_mul($x, gmp_pow(2, $n)));
     }
 
     public function getNetmask(): \GMP
