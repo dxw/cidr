@@ -1,6 +1,8 @@
 # cidr
 
-PHP CIDR library (IPv4-only at the moment)
+PHP library for matching an IP address to a CIDR range.
+
+Supports IPv4 and IPv6.
 
 ## Installation
 
@@ -8,33 +10,49 @@ PHP CIDR library (IPv4-only at the moment)
 
 ## API
 
-Uses result values. Results accept `->isErr()` to get if the result represents an error or not, and `->unwrap()` to get the value you want. Calling `->unwrap()` on a result value where `->isErr()` returns true generates a RuntimeException.
+Example of testing if an address falls within a particular range:
 
-Example:
-
-    $result = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.1');
+    $result = \Dxw\CIDR\IPv6Range::Make('2001:db8:123::/64');
     if ($result->isErr()) {
         // handle the error
     }
-    $match = $result->unwrap();
-    // $match is a bool
+    $range = $result->unwrap();
 
-### $result = \CIDR\IPv4::addrToInt($addr)
+    $result = \Dxw\CIDR\IPv6Address::Make('2001:db8:123::42');
+    if ($result->isErr()) {
+        // handle the error
+    }
+    $address = $result->unwrap();
 
-Internal function.
+    if ($range->containsAddress($address)) {
+        echo "It matches!\n";
+    } else {
+        echo "It doesn't match.\n";
+    }
 
-`$addr` is an IPv4 address as a string. `$result->unwrap()` is the same address represented as an integer.
-
-### $result = \CIDR\IPv4::netmask($i)
-
-Internal function.
-
-`$i` is the number after the "/" in a CIDR range. `$result->unwrap()` is the netmask as an integer.
-
-### $result = \CIDR\IPv4::match($haystack, $needle)
-
-Example:
-
-    $result = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.1');
-
-In this case 192.168.1.1 is within 192.168.1.1/24 so `$result->unwrap()` is true.
+- `IPv4Address`
+    - `::Make(string $address): \Dxw\Result\Result`
+    - `->__toString(): string`
+    - `->getBinary(): \GMP`
+- `IPv6Address`
+    - `::Make(string $address): \Dxw\Result\Result`
+    - `->__toString(): string`
+    - `->getBinary(): \GMP`
+- `IPv4Block`
+    - `::Make(int $value)`
+    - `->getValue(): int`
+    - `->getNetmask(): \GMP`
+- `IPv6Block`
+    - `::Make(int $value)`
+    - `->getValue(): int`
+    - `->getNetmask(): \GMP`
+- `IPv4Range`
+    - `::Make(string $range): \Dxw\Result\Result`
+    - `getAddress(): \Dxw\CIDR\IPv4Address`
+    - `getBlock(): \Dxw\CIDR\IPv4Block`
+    - `containsAddress(\Dxw\CIDR\IPv4Address $address): bool`
+- `IPv6Range`
+    - `::Make(string $range): \Dxw\Result\Result`
+    - `getAddress(): \Dxw\CIDR\IPv6Address`
+    - `getBlock(): \Dxw\CIDR\IPv6Block`
+    - `containsAddress(\Dxw\CIDR\IPv6Address $address): bool`
