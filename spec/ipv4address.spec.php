@@ -16,6 +16,13 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
             expect($result->isErr())->to->equal(true);
             expect($result->getErr())->to->equal('not an IPv4 address');
         });
+
+        it('rejects nonsense addresses', function () {
+            $result = \Dxw\CIDR\IPv4Address::Make('hello.there');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('inet_pton error: unrecognised address');
+        });
     });
 
     describe('->getBinary()', function () {
