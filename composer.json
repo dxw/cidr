@@ -22,6 +22,7 @@
         "peridot-php/leo": "^1.5"
     },
     "require": {
-        "dxw/result": "^1.0"
+        "dxw/result": "^1.0",
+        "ext-gmp": "*"
     }
 }
