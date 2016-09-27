@@ -21,8 +21,20 @@ class IPv4Address
         return $this->address;
     }
 
-    public function getBinary(): string
+    public function getBinary(): \GMP
     {
-        return inet_pton($this->address);
+        return $this->inAddrToGmp(inet_pton($this->address));
+    }
+
+    private function inAddrToGmp(string $in_addr): \GMP
+    {
+        $unpacked = unpack('a4', $in_addr);
+        $unpacked = str_split($unpacked[1]);
+        $binary = '';
+        foreach ($unpacked as $char) {
+            $binary .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+        }
+
+        return gmp_init($binary, 2);
     }
 }

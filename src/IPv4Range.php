@@ -44,27 +44,9 @@ class IPv4Range
         $netmask = $this->getBlock()->getNetmask();
         $otherAddress = $address->getBinary();
 
-        $thisAddressMasked = $this->bitwiseAnd($thisAddress, $netmask);
-        $otherAddressMasked = $this->bitwiseAnd($otherAddress, $netmask);
+        $thisAddressMasked = gmp_and($thisAddress, $netmask);
+        $otherAddressMasked = gmp_and($otherAddress, $netmask);
 
-        return $thisAddressMasked === $otherAddressMasked;
-    }
-
-    private function bitwiseAnd(string $a, string $b): string
-    {
-        $aArray = unpack('C*', $a);
-        $bArray = unpack('C*', $b);
-
-        if (count($aArray) !== count($bArray)) {
-            trigger_error(E_USER_FATAL, 'oh no');
-        }
-
-        $cArray = [];
-
-        for ($i = 1 ; $i <= count($aArray); $i++) {
-            $cArray[$i] = $aArray[$i] & $bArray[$i];
-        }
-
-        return call_user_func_array('pack', array_merge(['C*'], $cArray));
+        return gmp_cmp($thisAddressMasked, $otherAddressMasked) === 0;
     }
 }

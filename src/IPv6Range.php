@@ -38,32 +38,15 @@ class IPv6Range
         return $this->block;
     }
 
-    private function inAddrToGmp(string $in_addr): \GMP
-    {
-        $unpacked = unpack('a16', $in_addr);
-        $unpacked = str_split($unpacked[1]);
-        $binary = '';
-        foreach ($unpacked as $char) {
-            $binary .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
-        }
-
-        return gmp_init($binary, 2);
-    }
-
     public function containsAddress(\Dxw\CIDR\IPv6Address $address): bool
     {
         $thisAddress = $this->getAddress()->getBinary();
         $netmask = $this->getBlock()->getNetmask();
         $otherAddress = $address->getBinary();
 
-        $thisAddressMasked = $this->bitwiseAnd($this->inAddrToGmp($thisAddress), $netmask);
-        $otherAddressMasked = $this->bitwiseAnd($this->inAddrToGmp($otherAddress), $netmask);
+        $thisAddressMasked = gmp_and($thisAddress, $netmask);
+        $otherAddressMasked = gmp_and($otherAddress, $netmask);
 
         return gmp_cmp($thisAddressMasked, $otherAddressMasked) === 0;
-    }
-
-    private function bitwiseAnd(\GMP $a, \GMP $b): \GMP
-    {
-        return gmp_and($a, $b);
     }
 }
