@@ -27,6 +27,34 @@ describe(\Dxw\CIDR\IPv4Range::class, function () {
             expect($result->unwrap()->getBlock())->to->be->instanceof(\Dxw\CIDR\IPv4Block::class);
             expect($result->unwrap()->getBlock()->getValue())->to->equal(8);
         });
+
+        it('handles erroneous address-only ranges', function () {
+            $result = \Dxw\CIDR\IPv4Range::Make('foo');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('cannot make range with invalid address: not an IPv4 address');
+        });
+
+        it('handles erroneous address portions', function () {
+            $result = \Dxw\CIDR\IPv4Range::Make('foo/8');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('cannot make range with invalid address: not an IPv4 address');
+        });
+
+        it('handles non-int block size portions', function () {
+            $result = \Dxw\CIDR\IPv4Range::Make('127.0.0.1/f');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('cannot make range with invalid block size');
+        });
+
+        it('handles out-of-range block size portions', function () {
+            $result = \Dxw\CIDR\IPv4Range::Make('127.0.0.1/33');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('cannot make range with invalid block size: block value too large');
+        });
     });
 
     describe('->containsAddress()', function () {

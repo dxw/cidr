@@ -10,16 +10,38 @@ class IPv4Range
     public static function Make(string $range): \Dxw\Result\Result
     {
         if (strpos($range, '/') === false) {
-            $address = \Dxw\CIDR\IPv4Address::Make($range);
-            $block = \Dxw\CIDR\IPv4Block::Make(32);
+            $result = \Dxw\CIDR\IPv4Address::Make($range);
+            if ($result->isErr()) {
+                return $result->wrap('cannot make range with invalid address');
+            }
+            $address = $result->unwrap();
+
+            // This cannot produce an error unless we break IPv4Block
+            $block = \Dxw\CIDR\IPv4Block::Make(32)->unwrap();
         } else {
             $split = explode('/', $range);
+            $_address = $split[0];
+            $_block = $split[1];
 
-            $address = \Dxw\CIDR\IPv4Address::Make($split[0]);
-            $block = \Dxw\CIDR\IPv4Block::Make($split[1]);
+            // Make sure the block doesn't contain any nonsense
+            if ((string)(int)$_block !== $_block) {
+                return \Dxw\Result\Result::err('cannot make range with invalid block size');
+            }
+
+            $result = \Dxw\CIDR\IPv4Address::Make($_address);
+            if ($result->isErr()) {
+                return $result->wrap('cannot make range with invalid address');
+            }
+            $address = $result->unwrap();
+
+            $result = \Dxw\CIDR\IPv4Block::Make($_block);
+            if ($result->isErr()) {
+                return $result->wrap('cannot make range with invalid block size');
+            }
+            $block = $result->unwrap();
         }
 
-        return \Dxw\Result\Result::ok(new self($address->unwrap(), $block->unwrap()));
+        return \Dxw\Result\Result::ok(new self($address, $block));
     }
 
     private function __construct(\Dxw\CIDR\IPv4Address $address, \Dxw\CIDR\IPv4Block $block)
