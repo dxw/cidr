@@ -9,6 +9,13 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
             expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv4Address::class);
             expect($result->unwrap()->__toString())->to->equal('127.0.0.1');
         });
+
+        it('rejects IPv6 addresses', function () {
+            $result = \Dxw\CIDR\IPv4Address::Make('::1');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('not an IPv4 address');
+        });
     });
 
     describe('->getBinary()', function () {
