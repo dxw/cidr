@@ -8,9 +8,25 @@ Supports IPv4 and IPv6.
 
     composer require dxw/cidr
 
+## Usage
+
+To simply match two addresses:
+
+    $result = \Dxw\CIDR\IP::contains('2001:db8:123::/64', '2001:db8:123::42');
+    if ($result->isErr()) {
+        // handle the error
+    }
+    $match = $result->unwrap();
+
+    if ($match) {
+        echo "The addresses match!\n";
+    } else {
+        echo "The addresses don't match.\n";
+    }
+
 ## API
 
-Example of testing if an address falls within a particular range:
+Example of testing if an IPv6 address falls within a particular IPv6 range:
 
     $result = \Dxw\CIDR\IPv6Range::Make('2001:db8:123::/64');
     if ($result->isErr()) {
@@ -30,6 +46,8 @@ Example of testing if an address falls within a particular range:
         echo "It doesn't match.\n";
     }
 
+- `IP`
+    - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result`
 - `IPv4Address`
     - `::Make(string $address): \Dxw\Result\Result`
     - `->__toString(): string`
