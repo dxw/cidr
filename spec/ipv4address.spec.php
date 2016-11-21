@@ -23,6 +23,20 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
             expect($result->isErr())->to->equal(true);
             expect($result->getErr())->to->equal('inet_pton error: unrecognised address');
         });
+
+        it('rejects IPv4-compatible IPv6 addresses', function () {
+            $result = \Dxw\CIDR\IPv4Address::Make('::127.0.0.1');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('not an IPv4 address');
+        });
+
+        it('rejects IPv4-mapped IPv6 addresses', function () {
+            $result = \Dxw\CIDR\IPv4Address::Make('::ffff:127.0.0.1');
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('not an IPv4 address');
+        });
     });
 
     describe('->getBinary()', function () {
