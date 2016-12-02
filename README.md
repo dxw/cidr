@@ -48,6 +48,10 @@ Example of testing if an IPv6 address falls within a particular IPv6 range:
 
 - `IP`
     - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result`
+- `IPAddress`
+    - `::Make(string $address): \Dxw\Result\Result`
+- `IPRange`
+    - `::Make(string $range): \Dxw\Result\Result`
 - `IPv4Address`
     - `::Make(string $address): \Dxw\Result\Result`
     - `->__toString(): string`
