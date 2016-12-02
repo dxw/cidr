@@ -78,5 +78,12 @@ describe(\Dxw\CIDR\IPv6Range::class, function () {
 
             expect($range->containsAddress($address))->to->equal(false);
         });
+
+        it('accepts an IPv4Address', function () {
+            $range = \Dxw\CIDR\IPv6Range::Make('::1/8')->unwrap();
+            $address = \Dxw\CIDR\IPv4Address::Make('127.0.0.1')->unwrap();
+
+            expect($range->containsAddress($address))->to->equal(false);
+        });
     });
 });

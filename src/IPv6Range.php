@@ -60,8 +60,12 @@ class IPv6Range
         return $this->block;
     }
 
-    public function containsAddress(\Dxw\CIDR\IPv6Address $address): bool
+    public function containsAddress(\Dxw\CIDR\AddressBase $address): bool
     {
+        if (!($address instanceof \Dxw\CIDR\IPv6Address)) {
+            return false;
+        }
+
         $thisAddress = $this->getAddress()->getBinary();
         $netmask = $this->getBlock()->getNetmask();
         $otherAddress = $address->getBinary();
