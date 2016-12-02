@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class IPv6Address extends IPAddress
+class IPv6Address extends AddressBase
 {
     protected static $unpackSize = '16';
 

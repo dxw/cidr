@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class IPv4Address extends IPAddress
+class IPv4Address extends AddressBase
 {
     protected static $unpackSize = '4';
 

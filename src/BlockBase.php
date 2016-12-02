@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class IPBlock
+class BlockBase
 {
     private $value;
     protected static $maxSize;

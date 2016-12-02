@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class IPAddress
+class AddressBase
 {
     private $address;
     protected static $unpackSize;
