@@ -24,6 +24,14 @@ To simply match two addresses:
         echo "The addresses don't match.\n";
     }
 
+## Notes
+
+IPv4-compatible IPv6 addresses and IPv4-mapped IPv6 addresses are partially supported.
+
+An address of the form `::127.0.0.1` or `::ffff:127.0.0.1` will be parsed. But only if they fall within `::/96` or `::ffff:0:0/96`. For example, `2001:db8::127.0.0.1` will be rejected.
+
+But the resulting address will be treated as an IPv6 and as such it will never match an IPv4 address. For example, `127.0.0.1` will never match `::ffff:127.0.0.1` or `::127.0.0.1`.
+
 ## API
 
 Example of testing if an IPv6 address falls within a particular IPv6 range:
@@ -45,6 +53,8 @@ Example of testing if an IPv6 address falls within a particular IPv6 range:
     } else {
         echo "It doesn't match.\n";
     }
+
+To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example version agnostic, replace `IPv6` with just `IP`.
 
 - `IP`
     - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result`
