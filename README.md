@@ -1,31 +1,90 @@
 # cidr
 
-PHP CIDR library (IPv4-only at the moment)
+PHP library for matching an IP address to a CIDR range.
+
+Supports IPv4 and IPv6.
 
 ## Installation
 
-    composer require dxw/cidr=dev-master
+    composer require dxw/cidr
+
+## Usage
+
+To simply match two addresses:
+
+    $result = \Dxw\CIDR\IP::contains('2001:db8:123::/64', '2001:db8:123::42');
+    if ($result->isErr()) {
+        // handle the error
+    }
+    $match = $result->unwrap();
+
+    if ($match) {
+        echo "The addresses match!\n";
+    } else {
+        echo "The addresses don't match.\n";
+    }
+
+## Notes
+
+IPv4-compatible IPv6 addresses and IPv4-mapped IPv6 addresses are partially supported.
+
+An address of the form `::127.0.0.1` or `::ffff:127.0.0.1` will be parsed. But only if they fall within `::/96` or `::ffff:0:0/96`. For example, `2001:db8::127.0.0.1` will be rejected.
+
+But the resulting address will be treated as an IPv6 and as such it will never match an IPv4 address. For example, `127.0.0.1` will never match `::ffff:127.0.0.1` or `::127.0.0.1`.
 
 ## API
 
-Uses multiple return values.  If $err is null then the operation succeeded. If $err is not null then you've probably done something wrong.
+Example of testing if an IPv6 address falls within a particular IPv6 range:
 
-### list($int, $err) = \CIDR\IPv4::addrToInt($addr)
+    $result = \Dxw\CIDR\IPv6Range::Make('2001:db8:123::/64');
+    if ($result->isErr()) {
+        // handle the error
+    }
+    $range = $result->unwrap();
 
-Internal function.
+    $result = \Dxw\CIDR\IPv6Address::Make('2001:db8:123::42');
+    if ($result->isErr()) {
+        // handle the error
+    }
+    $address = $result->unwrap();
 
-$addr is an IPv4 address as a string. $int is the same addresse represented as an integer.
+    if ($range->containsAddress($address)) {
+        echo "It matches!\n";
+    } else {
+        echo "It doesn't match.\n";
+    }
 
-### list($netmask, $err) = \CIDR\IPv4::netmask($i)
+To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example version agnostic, replace `IPv6` with just `IP`.
 
-Internal function.
-
-$i is the number after the "/" in a CIDR range. It returns the netmask as an integer.
-
-### list($match, $err) = \CIDR\IPv4::match($haystack, $needle)
-
-Example:
-
-    list($match, $err) = \CIDR\IPv4::match('192.168.1.1/24', '192.168.1.1');
-
-In this case 192.168.1.1 is within 192.168.1.1/24 so $match is true.
+- `IP`
+    - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result`
+- `IPAddress`
+    - `::Make(string $address): \Dxw\Result\Result`
+- `IPRange`
+    - `::Make(string $range): \Dxw\Result\Result`
+- `IPv4Address`
+    - `::Make(string $address): \Dxw\Result\Result`
+    - `->__toString(): string`
+    - `->getBinary(): \GMP`
+- `IPv6Address`
+    - `::Make(string $address): \Dxw\Result\Result`
+    - `->__toString(): string`
+    - `->getBinary(): \GMP`
+- `IPv4Block`
+    - `::Make(int $value)`
+    - `->getValue(): int`
+    - `->getNetmask(): \GMP`
+- `IPv6Block`
+    - `::Make(int $value)`
+    - `->getValue(): int`
+    - `->getNetmask(): \GMP`
+- `IPv4Range`
+    - `::Make(string $range): \Dxw\Result\Result`
+    - `getAddress(): \Dxw\CIDR\IPv4Address`
+    - `getBlock(): \Dxw\CIDR\IPv4Block`
+    - `containsAddress(\Dxw\CIDR\IPv4Address $address): bool`
+- `IPv6Range`
+    - `::Make(string $range): \Dxw\Result\Result`
+    - `getAddress(): \Dxw\CIDR\IPv6Address`
+    - `getBlock(): \Dxw\CIDR\IPv6Block`
+    - `containsAddress(\Dxw\CIDR\IPv6Address $address): bool`

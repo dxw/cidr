@@ -1,11 +1,14 @@
 language: php
 sudo: false
-install: composer install
-script: vendor/bin/phpunit
+git:
+  submodules: false
+cache:
+  directories:
+    - vendor
 php:
-  - 5.4
-  - 5.5
-  - 5.6
   - 7.0
-  - nightly
-  - hhvm
+install:
+  - composer --no-interaction install
+script:
+  - vendor/bin/peridot -C spec
+  - vendor/bin/php-cs-fixer fix --dry-run -v --diff
