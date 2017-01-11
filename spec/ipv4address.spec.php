@@ -43,8 +43,8 @@ describe(\Dxw\CIDR\IPv4Address::class, function () {
         it('returns a binary representation', function () {
             $address = \Dxw\CIDR\IPv4Address::Make('127.0.0.1')->unwrap();
 
-            expect($address->getBinary())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($address->getBinary(), 16))->to->equal(
+            expect($address->getBinary())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($address->getBinary()->toHex())->to->equal(
                 '7f000001'
             );
         });

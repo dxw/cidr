@@ -29,8 +29,8 @@ describe(\Dxw\CIDR\IPv6Block::class, function () {
         it('returns a binary representation for /32', function () {
             $block = \Dxw\CIDR\IPv6Block::Make(32)->unwrap();
 
-            expect($block->getNetmask())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($block->getNetmask(), 16))->to->equal(
+            expect($block->getNetmask())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($block->getNetmask()->toHex())->to->equal(
                 'ffffffff000000000000000000000000'
             );
         });
@@ -38,17 +38,17 @@ describe(\Dxw\CIDR\IPv6Block::class, function () {
         it('returns a binary representation for /0', function () {
             $block = \Dxw\CIDR\IPv6Block::Make(0)->unwrap();
 
-            expect($block->getNetmask())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($block->getNetmask(), 16))->to->equal(
-                '0'
+            expect($block->getNetmask())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($block->getNetmask()->toHex())->to->equal(
+                ''
             );
         });
 
         it('returns a binary representation for /8', function () {
             $block = \Dxw\CIDR\IPv6Block::Make(8)->unwrap();
 
-            expect($block->getNetmask())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($block->getNetmask(), 16))->to->equal(
+            expect($block->getNetmask())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($block->getNetmask()->toHex())->to->equal(
                 'ff000000000000000000000000000000'
             );
         });
@@ -56,8 +56,8 @@ describe(\Dxw\CIDR\IPv6Block::class, function () {
         it('returns a binary representation for /9', function () {
             $block = \Dxw\CIDR\IPv6Block::Make(9)->unwrap();
 
-            expect($block->getNetmask())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($block->getNetmask(), 16))->to->equal(
+            expect($block->getNetmask())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($block->getNetmask()->toHex())->to->equal(
                 'ff800000000000000000000000000000'
             );
         });

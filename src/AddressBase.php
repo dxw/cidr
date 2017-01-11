@@ -5,7 +5,6 @@ namespace Dxw\CIDR;
 class AddressBase
 {
     private $address;
-    protected static $unpackSize;
 
     public static function Make(string $address): \Dxw\Result\Result
     {
@@ -29,20 +28,8 @@ class AddressBase
         return inet_ntop($this->address);
     }
 
-    public function getBinary(): \GMP
+    public function getBinary(): \phpseclib\Math\BigInteger
     {
-        return $this->inAddrToGmp($this->address);
-    }
-
-    private function inAddrToGmp(string $in_addr): \GMP
-    {
-        $unpacked = unpack('a'.static::$unpackSize, $in_addr);
-        $unpacked = str_split($unpacked[1]);
-        $binary = '';
-        foreach ($unpacked as $char) {
-            $binary .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
-        }
-
-        return gmp_init($binary, 2);
+        return new \phpseclib\Math\BigInteger($this->address, 256);
     }
 }
