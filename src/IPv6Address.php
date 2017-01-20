@@ -4,8 +4,6 @@ namespace Dxw\CIDR;
 
 class IPv6Address extends AddressBase
 {
-    protected static $unpackSize = '16';
-
     public static function Make(string $address): \Dxw\Result\Result
     {
         if (strpos($address, ':') === false) {

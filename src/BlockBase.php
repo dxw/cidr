@@ -7,7 +7,7 @@ class BlockBase
     private $value;
     protected static $maxSize;
 
-    public static function Make(int $value)
+    public static function Make(int $value): \Dxw\Result\Result
     {
         if ($value > static::$maxSize) {
             return \Dxw\Result\Result::err('block value too large');
@@ -30,16 +30,17 @@ class BlockBase
         return $this->value;
     }
 
-    private function gmp_shiftl($x, $n)
-    {
-        return(gmp_mul($x, gmp_pow(2, $n)));
-    }
-
-    public function getNetmask(): \GMP
+    public function getNetmask(): \phpseclib\Math\BigInteger
     {
         $i = $this->value;
-        $netmask = $this->gmp_shiftl(gmp_sub(gmp_pow(gmp_init(2), $i), gmp_init(1)), static::$maxSize - $i);
+        $s = '';
+        for ($x = 0; $x < $i; $x++) {
+            $s .= '1';
+        }
+        for ($x = 0; $x < static::$maxSize - $i; $x++) {
+            $s .= '0';
+        }
 
-        return $netmask;
+        return new \phpseclib\Math\BigInteger($s, 2);
     }
 }

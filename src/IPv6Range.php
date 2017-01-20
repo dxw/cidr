@@ -70,9 +70,9 @@ class IPv6Range
         $netmask = $this->getBlock()->getNetmask();
         $otherAddress = $address->getBinary();
 
-        $thisAddressMasked = gmp_and($thisAddress, $netmask);
-        $otherAddressMasked = gmp_and($otherAddress, $netmask);
+        $thisAddressMasked = $thisAddress->bitwise_and($netmask);
+        $otherAddressMasked = $otherAddress->bitwise_and($netmask);
 
-        return gmp_cmp($thisAddressMasked, $otherAddressMasked) === 0;
+        return $thisAddressMasked->equals($otherAddressMasked);
     }
 }

@@ -45,9 +45,9 @@ describe(\Dxw\CIDR\IPv6Address::class, function () {
         it('returns a binary representation', function () {
             $address = \Dxw\CIDR\IPv6Address::Make('::1')->unwrap();
 
-            expect($address->getBinary())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($address->getBinary(), 16))->to->equal(
-                '1'
+            expect($address->getBinary())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($address->getBinary()->toHex())->to->equal(
+                '01'
             );
         });
 
@@ -55,8 +55,8 @@ describe(\Dxw\CIDR\IPv6Address::class, function () {
         it('returns a binary representation for IPv4-compatible addresses', function () {
             $address = \Dxw\CIDR\IPv6Address::Make('::127.0.0.1')->unwrap();
 
-            expect($address->getBinary())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($address->getBinary(), 16))->to->equal(
+            expect($address->getBinary())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($address->getBinary()->toHex())->to->equal(
                 '7f000001'
             );
         });
@@ -65,8 +65,8 @@ describe(\Dxw\CIDR\IPv6Address::class, function () {
         it('returns a binary representation for IPv4-mapped addresses', function () {
             $address = \Dxw\CIDR\IPv6Address::Make('::ffff:127.0.0.1')->unwrap();
 
-            expect($address->getBinary())->to->be->instanceof(\GMP::class);
-            expect(gmp_strval($address->getBinary(), 16))->to->equal(
+            expect($address->getBinary())->to->be->instanceof(\phpseclib\Math\BigInteger::class);
+            expect($address->getBinary()->toHex())->to->equal(
                 'ffff7f000001'
             );
         });

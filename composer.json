@@ -24,7 +24,8 @@
         "mockery/mockery": "dev-master"
     },
     "require": {
+        "php": ">=7",
         "dxw/result": "^1.0",
-        "ext-gmp": "*"
+        "phpseclib/phpseclib": "^2.0"
     }
 }
