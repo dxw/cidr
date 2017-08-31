@@ -6,7 +6,8 @@ cache:
   directories:
     - vendor
 php:
-  - 7.0
+  - 7.0.22
+  - 7.1
 install:
   - composer --no-interaction install
 script:

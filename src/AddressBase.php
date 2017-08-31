@@ -4,6 +4,7 @@ namespace Dxw\CIDR;
 
 class AddressBase
 {
+    /** @var string */
     private $address;
 
     public static function Make(string $address): \Dxw\Result\Result

@@ -21,7 +21,8 @@
         "peridot-php/peridot": "^1.18",
         "peridot-php/leo": "^1.5",
         "peridot-php/peridot-dot-reporter": "^1.0",
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "dev-master",
+        "vimeo/psalm": "^0.3.54"
     },
     "require": {
         "php": ">=7",
