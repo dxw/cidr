@@ -16,15 +16,19 @@
             "Dxw\\CIDR\\": "src/"
         }
     },
+    "config": {
+        "platform": {
+            "php": "7.0.22"
+        }
+    },
     "require-dev": {
-        "fabpot/php-cs-fixer": "1.11.4",
-        "peridot-php/peridot": "^1.18",
-        "peridot-php/leo": "^1.5",
+        "fabpot/php-cs-fixer": "^2.15",
+        "peridot-php/peridot": "^1.19",
+        "peridot-php/leo": "^1.6",
         "peridot-php/peridot-dot-reporter": "^1.0",
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "^1.2"
     },
     "require": {
-        "php": ">=7",
         "dxw/result": "^1.0",
         "phpseclib/phpseclib": "^2.0"
     }
