@@ -65,26 +65,26 @@ To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example v
 - `IPv4Address`
     - `::Make(string $address): \Dxw\Result\Result`
     - `->__toString(): string`
-    - `->getBinary(): \GMP`
+    - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv6Address`
     - `::Make(string $address): \Dxw\Result\Result`
     - `->__toString(): string`
-    - `->getBinary(): \GMP`
+    - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv4Block`
-    - `::Make(int $value)`
+    - `::Make(int $value): \Dxw\Result\Result`
     - `->getValue(): int`
-    - `->getNetmask(): \GMP`
+    - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv6Block`
-    - `::Make(int $value)`
+    - `::Make(int $value): \Dxw\Result\Result`
     - `->getValue(): int`
-    - `->getNetmask(): \GMP`
+    - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv4Range`
     - `::Make(string $range): \Dxw\Result\Result`
-    - `getAddress(): \Dxw\CIDR\IPv4Address`
-    - `getBlock(): \Dxw\CIDR\IPv4Block`
-    - `containsAddress(\Dxw\CIDR\IPv4Address $address): bool`
+    - `->getAddress(): \Dxw\CIDR\IPv4Address`
+    - `->getBlock(): \Dxw\CIDR\IPv4Block`
+    - `->containsAddress(\Dxw\CIDR\AddressBase $address): bool`
 - `IPv6Range`
     - `::Make(string $range): \Dxw\Result\Result`
-    - `getAddress(): \Dxw\CIDR\IPv6Address`
-    - `getBlock(): \Dxw\CIDR\IPv6Block`
-    - `containsAddress(\Dxw\CIDR\IPv6Address $address): bool`
+    - `->getAddress(): \Dxw\CIDR\IPv6Address`
+    - `->getBlock(): \Dxw\CIDR\IPv6Block`
+    - `->containsAddress(\Dxw\CIDR\AddressBase $address): bool`
