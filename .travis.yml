@@ -16,3 +16,5 @@ install:
 script:
   - vendor/bin/peridot -C spec
   - vendor/bin/php-cs-fixer fix --dry-run -v --diff
+  # The psalm version that runs on PHP 7.0 doesn't run on PHP 7.4
+  - test ${TRAVIS_PHP_VERSION} = 7.4 || vendor/bin/psalm

@@ -4,7 +4,9 @@ namespace Dxw\CIDR;
 
 class IPAddress
 {
+    /** @var callable */
     public static $IPv6Address = [\Dxw\CIDR\IPv6Address::class, 'Make'];
+    /** @var callable */
     public static $IPv4Address = [\Dxw\CIDR\IPv4Address::class, 'Make'];
 
     public static function Make(string $address): \Dxw\Result\Result

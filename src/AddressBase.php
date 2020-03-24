@@ -4,6 +4,7 @@ namespace Dxw\CIDR;
 
 class AddressBase
 {
+    /** @var string */
     private $address;
 
     public static function Make(string $address): \Dxw\Result\Result
@@ -25,7 +26,14 @@ class AddressBase
 
     public function __toString(): string
     {
-        return inet_ntop($this->address);
+        $value = inet_ntop($this->address);
+
+        // $value should never be false since the address gets parsed by
+        // inet_pton() before being passed to the constructor
+        if ($value === false) {
+            throw new \ErrorException("inet_ntop error: return value was false");
+        }
+        return $value;
     }
 
     public function getBinary(): \phpseclib\Math\BigInteger

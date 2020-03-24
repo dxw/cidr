@@ -4,7 +4,10 @@ namespace Dxw\CIDR;
 
 class BlockBase
 {
+    /** @var int */
     private $value;
+
+    /** @var int */
     protected static $maxSize;
 
     public static function Make(int $value): \Dxw\Result\Result
