@@ -22,11 +22,11 @@
         }
     },
     "require-dev": {
-        "peridot-php/peridot": "^1.19",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "mockery/mockery": "^1.3",
         "peridot-php/leo": "^1.6",
-        "peridot-php/peridot-dot-reporter": "^1.0",
-        "mockery/mockery": "^1.2",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "peridot-php/peridot": "^1.19",
+        "peridot-php/peridot-dot-reporter": "^1.0"
     },
     "require": {
         "dxw/result": "^1.0",
