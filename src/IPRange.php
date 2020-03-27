@@ -4,7 +4,9 @@ namespace Dxw\CIDR;
 
 class IPRange
 {
+    /** @var callable */
     public static $IPv6Range = [\Dxw\CIDR\IPv6Range::class, 'Make'];
+    /** @var callable */
     public static $IPv4Range = [\Dxw\CIDR\IPv4Range::class, 'Make'];
 
     public static function Make(string $range): \Dxw\Result\Result

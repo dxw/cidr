@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<psalm>
+  <projectFiles>
+    <directory name="src"/>
+  </projectFiles>
+  <issueHandlers>
+    <!--
+      @internal has two definitions according to phpdoc.org:
+
+      "The @internal tag is used to denote that associated Structural Elements are elements internal to this application or library. It may also be used inside a long description to insert a piece of text that is only applicable for the developers of this software."
+
+      psalm is using the former semantics while phpseclib is using the latter.
+
+      https://docs.phpdoc.org/latest/references/phpdoc/tags/internal.html
+    -->
+    <InternalMethod errorLevel="suppress"/>
+  </issueHandlers>
+</psalm>

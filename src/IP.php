@@ -5,7 +5,9 @@ namespace Dxw\CIDR;
 class IP
 {
     // This makes everything easy to test
+    /** @var callable */
     public static $IPAddress = [\Dxw\CIDR\IPAddress::class, 'Make'];
+    /** @var callable */
     public static $IPRange = [\Dxw\CIDR\IPRange::class, 'Make'];
 
     public static function contains(string $range, string $address): \Dxw\Result\Result
