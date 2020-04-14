@@ -72,10 +72,12 @@ To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example v
     - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv4Block`
     - `::Make(int $value): \Dxw\Result\Result`
+    - `->__toString(): string`
     - `->getValue(): int`
     - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv6Block`
     - `::Make(int $value): \Dxw\Result\Result`
+    - `->__toString(): string`
     - `->getValue(): int`
     - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv4Range`

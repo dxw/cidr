@@ -46,4 +46,9 @@ abstract class BlockBase
 
         return new \phpseclib\Math\BigInteger($s, 2);
     }
+
+    public function __toString(): string
+    {
+        return sprintf('/%d', $this->value);
+    }
 }

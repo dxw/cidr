@@ -62,4 +62,15 @@ describe(\Dxw\CIDR\IPv4Block::class, function () {
             );
         });
     });
+
+    describe('->__toString()', function () {
+        it('returns strings', function () {
+            expect(\Dxw\CIDR\IPv4Block::Make(0)->unwrap()->__toString())->to->equal('/0');
+            expect(\Dxw\CIDR\IPv4Block::Make(1)->unwrap()->__toString())->to->equal('/1');
+            expect(\Dxw\CIDR\IPv4Block::Make(5)->unwrap()->__toString())->to->equal('/5');
+            expect(\Dxw\CIDR\IPv4Block::Make(17)->unwrap()->__toString())->to->equal('/17');
+            expect(\Dxw\CIDR\IPv4Block::Make(24)->unwrap()->__toString())->to->equal('/24');
+            expect(\Dxw\CIDR\IPv4Block::Make(32)->unwrap()->__toString())->to->equal('/32');
+        });
+    });
 });
