@@ -2,12 +2,16 @@
 
 namespace Dxw\CIDR;
 
-class IPv4Range
+class IPv4Range extends RangeBase
 {
     /** @var IPv4Address */
     private $address;
+
     /** @var IPv4Block */
-    private $block;
+    protected $block;
+
+    /** @var string */
+    protected static $addressClass = IPv4Address::class;
 
     public static function Make(string $range): \Dxw\Result\Result
     {

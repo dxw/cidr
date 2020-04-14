@@ -86,4 +86,11 @@ describe(\Dxw\CIDR\IPv6Range::class, function () {
             expect($range->containsAddress($address))->to->equal(false);
         });
     });
+
+    describe('->__toString()', function () {
+        it('returns strings', function () {
+            expect(\Dxw\CIDR\IPv6Range::Make('2001:db8::123/128')->unwrap()->__toString())->to->equal('2001:db8::123/128');
+            expect(\Dxw\CIDR\IPv6Range::Make('2001:db8::123/64')->unwrap()->__toString())->to->equal('2001:db8::/64');
+        });
+    });
 });

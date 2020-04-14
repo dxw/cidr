@@ -82,11 +82,13 @@ To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example v
     - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv4Range`
     - `::Make(string $range): \Dxw\Result\Result`
+    - `->__toString(): string`
     - `->getAddress(): \Dxw\CIDR\IPv4Address`
     - `->getBlock(): \Dxw\CIDR\IPv4Block`
     - `->containsAddress(\Dxw\CIDR\AddressBase $address): bool`
 - `IPv6Range`
     - `::Make(string $range): \Dxw\Result\Result`
+    - `->__toString(): string`
     - `->getAddress(): \Dxw\CIDR\IPv6Address`
     - `->getBlock(): \Dxw\CIDR\IPv6Block`
     - `->containsAddress(\Dxw\CIDR\AddressBase $address): bool`
