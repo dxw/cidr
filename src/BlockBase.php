@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class BlockBase
+abstract class BlockBase
 {
     /** @var int */
     private $value;

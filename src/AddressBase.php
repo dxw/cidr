@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class AddressBase
+abstract class AddressBase
 {
     /** @var string */
     private $address;
