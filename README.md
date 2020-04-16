@@ -64,10 +64,12 @@ To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example v
     - `::Make(string $range): \Dxw\Result\Result`
 - `IPv4Address`
     - `::Make(string $address): \Dxw\Result\Result`
+    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result`
     - `->__toString(): string`
     - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv6Address`
     - `::Make(string $address): \Dxw\Result\Result`
+    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result`
     - `->__toString(): string`
     - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv4Block`
