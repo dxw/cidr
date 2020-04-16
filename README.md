@@ -57,39 +57,39 @@ Example of testing if an IPv6 address falls within a particular IPv6 range:
 To make the example IPv4-only, replace `IPv6` with `IPv4`. To make the example version agnostic, replace `IPv6` with just `IP`.
 
 - `IP`
-    - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result`
+    - `::contains(string $addressOrRange, string $address): \Dxw\Result\Result<bool>`
 - `IPAddress`
-    - `::Make(string $address): \Dxw\Result\Result`
+    - `::Make(string $address): \Dxw\Result\Result<AddressBase>` (`AddressBase` is the abstract superclass of `IPv4Address` and `IPv6Address`)
 - `IPRange`
-    - `::Make(string $range): \Dxw\Result\Result`
+    - `::Make(string $range): \Dxw\Result\Result<RangeBase>` (`RangeBase` is the abstract superclass of `IPv4Range` and `IPv6Range`)
 - `IPv4Address`
-    - `::Make(string $address): \Dxw\Result\Result`
-    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result`
+    - `::Make(string $address): \Dxw\Result\Result<IPv4Address>`
+    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result<IPv4Address>`
     - `->__toString(): string`
     - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv6Address`
-    - `::Make(string $address): \Dxw\Result\Result`
-    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result`
+    - `::Make(string $address): \Dxw\Result\Result<IPv6Address>`
+    - `::FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result<IPv6Address>`
     - `->__toString(): string`
     - `->getBinary(): \phpseclib\Math\BigInteger`
 - `IPv4Block`
-    - `::Make(int $value): \Dxw\Result\Result`
+    - `::Make(int $value): \Dxw\Result\Result<IPv4Block>`
     - `->__toString(): string`
     - `->getValue(): int`
     - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv6Block`
-    - `::Make(int $value): \Dxw\Result\Result`
+    - `::Make(int $value): \Dxw\Result\Result<IPv6Block>`
     - `->__toString(): string`
     - `->getValue(): int`
     - `->getNetmask(): \phpseclib\Math\BigInteger`
 - `IPv4Range`
-    - `::Make(string $range): \Dxw\Result\Result`
+    - `::Make(string $range): \Dxw\Result\Result<IPv4Range>`
     - `->__toString(): string`
     - `->getAddress(): \Dxw\CIDR\IPv4Address`
     - `->getBlock(): \Dxw\CIDR\IPv4Block`
     - `->containsAddress(\Dxw\CIDR\AddressBase $address): bool`
 - `IPv6Range`
-    - `::Make(string $range): \Dxw\Result\Result`
+    - `::Make(string $range): \Dxw\Result\Result<IPv6Range>`
     - `->__toString(): string`
     - `->getAddress(): \Dxw\CIDR\IPv6Address`
     - `->getBlock(): \Dxw\CIDR\IPv6Block`
