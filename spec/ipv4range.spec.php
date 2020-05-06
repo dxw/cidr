@@ -86,4 +86,11 @@ describe(\Dxw\CIDR\IPv4Range::class, function () {
             expect($range->containsAddress($address))->to->equal(false);
         });
     });
+
+    describe('->__toString()', function () {
+        it('returns strings', function () {
+            expect(\Dxw\CIDR\IPv4Range::Make('192.168.1.1/24')->unwrap()->__toString())->to->equal('192.168.1.0/24');
+            expect(\Dxw\CIDR\IPv4Range::Make('127.0.0.1/32')->unwrap()->__toString())->to->equal('127.0.0.1/32');
+        });
+    });
 });

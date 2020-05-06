@@ -62,4 +62,17 @@ describe(\Dxw\CIDR\IPv6Block::class, function () {
             );
         });
     });
+
+    describe('->__toString()', function () {
+        it('returns strings', function () {
+            expect(\Dxw\CIDR\IPv6Block::Make(0)->unwrap()->__toString())->to->equal('/0');
+            expect(\Dxw\CIDR\IPv6Block::Make(1)->unwrap()->__toString())->to->equal('/1');
+            expect(\Dxw\CIDR\IPv6Block::Make(5)->unwrap()->__toString())->to->equal('/5');
+            expect(\Dxw\CIDR\IPv6Block::Make(17)->unwrap()->__toString())->to->equal('/17');
+            expect(\Dxw\CIDR\IPv6Block::Make(24)->unwrap()->__toString())->to->equal('/24');
+            expect(\Dxw\CIDR\IPv6Block::Make(32)->unwrap()->__toString())->to->equal('/32');
+            expect(\Dxw\CIDR\IPv6Block::Make(64)->unwrap()->__toString())->to->equal('/64');
+            expect(\Dxw\CIDR\IPv6Block::Make(128)->unwrap()->__toString())->to->equal('/128');
+        });
+    });
 });

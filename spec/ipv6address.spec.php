@@ -41,6 +41,38 @@ describe(\Dxw\CIDR\IPv6Address::class, function () {
         });
     });
 
+    describe('::FromBinary()', function () {
+        it('handles correct addresses (small)', function () {
+            $result = \Dxw\CIDR\IPv6Address::FromBinary(new \phpseclib\Math\BigInteger(1));
+
+            expect($result->isErr())->to->equal(false);
+            expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv6Address::class);
+            expect($result->unwrap()->__toString())->to->equal('::1');
+        });
+
+        it('handles correct addresses (large)', function () {
+            $result = \Dxw\CIDR\IPv6Address::FromBinary(new \phpseclib\Math\BigInteger('ffffffffffffffffffffffffffffffff', 16));
+
+            expect($result->isErr())->to->equal(false);
+            expect($result->unwrap())->to->be->instanceof(\Dxw\CIDR\IPv6Address::class);
+            expect($result->unwrap()->__toString())->to->equal('ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff');
+        });
+
+        it('handles broken addresses (too large)', function () {
+            $result = \Dxw\CIDR\IPv6Address::FromBinary(new \phpseclib\Math\BigInteger('100000000000000000000000000000000', 16));
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('address size cannot exceed 128 bytes');
+        });
+
+        it('handles broken addresses (negative)', function () {
+            $result = \Dxw\CIDR\IPv6Address::FromBinary(new \phpseclib\Math\BigInteger(-1));
+
+            expect($result->isErr())->to->equal(true);
+            expect($result->getErr())->to->equal('address cannot be negative');
+        });
+    });
+
     describe('->getBinary()', function () {
         it('returns a binary representation', function () {
             $address = \Dxw\CIDR\IPv6Address::Make('::1')->unwrap();
