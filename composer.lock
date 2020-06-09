@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbb1b07026369172bdfc35cfdf238671",
+    "content-hash": "963c6331df9899b6f06caa5b40935a67",
     "packages": [
         {
             "name": "dxw/result",
@@ -3028,7 +3028,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0"
+        "php": "^7.2"
     },
     "platform-dev": [],
     "platform-overrides": {
