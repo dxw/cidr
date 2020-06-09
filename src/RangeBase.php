@@ -10,8 +10,10 @@ abstract class RangeBase
     /** @var BlockBase */
     protected $block;
 
+    /** @return IPv4Address|IPv6Address */
     abstract public function getAddress();
 
+    /** @return IPv4Block|IPv6Block */
     abstract public function getBlock();
 
     public function __toString(): string
@@ -27,6 +29,6 @@ abstract class RangeBase
             throw new \ErrorException("unexpected error returned from FromBinary() constructor");
         }
 
-        return sprintf('%s%s', $result->unwrap(), $this->block);
+        return sprintf('%s%s', $result->unwrap(), (string) $this->block);
     }
 }
