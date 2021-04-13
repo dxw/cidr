@@ -6,8 +6,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Mallory Adams",
-            "email": "mallory@dxw.com",
+            "name": "dxw",
+            "email": "team@govpress.com",
             "homepage": "https://www.dxw.com"
         }
     ],
@@ -22,7 +22,7 @@
         "peridot-php/leo": "^1.6",
         "peridot-php/peridot": "^1.19",
         "peridot-php/peridot-dot-reporter": "^1.0",
-        "vimeo/psalm": "^3.2"
+        "vimeo/psalm": "^4.7"
     },
     "require": {
         "php": "^7.2",

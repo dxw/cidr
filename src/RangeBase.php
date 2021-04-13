@@ -2,12 +2,18 @@
 
 namespace Dxw\CIDR;
 
+/**
+ * @template Block as IPv4Block|IPv6Block
+ */
+
 abstract class RangeBase
 {
     /** @psalm-var class-string */
     protected static $addressClass;
 
-    /** @var BlockBase */
+    /**
+    * @var Block
+    */
     protected $block;
 
     /** @return IPv4Address|IPv6Address */
