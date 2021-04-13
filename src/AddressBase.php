@@ -22,7 +22,7 @@ abstract class AddressBase
         return \Dxw\Result\Result::ok(new static($_address));
     }
 
-    private function __construct(string $address)
+    final private function __construct(string $address)
     {
         $this->address = $address;
     }

@@ -23,7 +23,7 @@ abstract class BlockBase
         return \Dxw\Result\Result::ok(new static($value));
     }
 
-    private function __construct(int $value)
+    final private function __construct(int $value)
     {
         $this->value = $value;
     }
