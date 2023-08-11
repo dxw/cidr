@@ -42,7 +42,7 @@ abstract class AddressBase
 	public static function FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result
 	{
 		if ($binary->compare(new \phpseclib\Math\BigInteger(0)) < 0) {
-			return \Dxw\Result\Result::err(sprintf('address cannot be negative', static::$size));
+			return \Dxw\Result\Result::err('address cannot be negative');
 		}
 
 		$numBytes = intdiv(static::$size, 4);

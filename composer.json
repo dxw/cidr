@@ -17,7 +17,7 @@
         }
     },
     "require-dev": {
-        "vimeo/psalm": "^4.7",
+        "vimeo/psalm": "^5.14",
         "kahlan/kahlan": "^5.2",
         "dxw/php-cs-fixer-config": "^2.0"
     },
