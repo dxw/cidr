@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
+        php-versions: ['7.4','8.1','8.2']
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
@@ -27,7 +27,7 @@ jobs:
         run: composer --no-interaction install
       - name: PHP CS fix
         run: vendor/bin/php-cs-fixer fix --dry-run -v --diff
-      - name: Peridot BDD tests
-        run: vendor/bin/peridot -C spec
+      - name: Kahlan tests
+        run: vendor/bin/kahlan spec
       - name: Psalm linter
         run: vendor/bin/psalm
