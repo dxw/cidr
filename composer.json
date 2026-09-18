@@ -11,18 +11,23 @@
             "homepage": "https://www.dxw.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Dxw\\CIDR\\": "src/"
         }
     },
     "require-dev": {
-        "vimeo/psalm": "^5.14",
+        "vimeo/psalm": "^5.26",
         "kahlan/kahlan": "^5.2",
         "dxw/php-cs-fixer-config": "^2.0"
     },
     "require": {
-        "php": "^7.4||^8.1",
+        "php": "^8.1",
         "dxw/result": "^1.0",
         "phpseclib/phpseclib": "^2.0"
     }
