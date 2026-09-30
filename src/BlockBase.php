@@ -33,7 +33,7 @@ abstract class BlockBase
 		return $this->value;
 	}
 
-	public function getNetmask(): \phpseclib\Math\BigInteger
+	public function getNetmask(): \phpseclib3\Math\BigInteger
 	{
 		$i = $this->value;
 		$s = '';
@@ -44,7 +44,7 @@ abstract class BlockBase
 			$s .= '0';
 		}
 
-		return new \phpseclib\Math\BigInteger($s, 2);
+		return new \phpseclib3\Math\BigInteger($s, 2);
 	}
 
 	public function __toString(): string

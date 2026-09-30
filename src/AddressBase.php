@@ -39,9 +39,9 @@ abstract class AddressBase
 		return $value;
 	}
 
-	public static function FromBinary(\phpseclib\Math\BigInteger $binary): \Dxw\Result\Result
+	public static function FromBinary(\phpseclib3\Math\BigInteger $binary): \Dxw\Result\Result
 	{
-		if ($binary->compare(new \phpseclib\Math\BigInteger(0)) < 0) {
+		if ($binary->compare(new \phpseclib3\Math\BigInteger(0)) < 0) {
 			return \Dxw\Result\Result::err('address cannot be negative');
 		}
 
@@ -58,8 +58,8 @@ abstract class AddressBase
 		return \Dxw\Result\Result::ok(new static($bytes));
 	}
 
-	public function getBinary(): \phpseclib\Math\BigInteger
+	public function getBinary(): \phpseclib3\Math\BigInteger
 	{
-		return new \phpseclib\Math\BigInteger($this->address, 256);
+		return new \phpseclib3\Math\BigInteger($this->address, 256);
 	}
 }
