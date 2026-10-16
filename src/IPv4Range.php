@@ -4,6 +4,7 @@ namespace Dxw\CIDR;
 
 /**
  * @extends RangeBase<IPv4Block>
+ * @api
  */
 class IPv4Range extends RangeBase
 {
@@ -59,11 +60,13 @@ class IPv4Range extends RangeBase
 		$this->block = $block;
 	}
 
+	#[\Override]
 	public function getAddress(): \Dxw\CIDR\IPv4Address
 	{
 		return $this->address;
 	}
 
+	#[\Override]
 	public function getBlock(): \Dxw\CIDR\IPv4Block
 	{
 		return $this->block;

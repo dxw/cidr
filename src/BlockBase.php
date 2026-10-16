@@ -2,6 +2,9 @@
 
 namespace Dxw\CIDR;
 
+/**
+ * @api
+ */
 abstract class BlockBase
 {
 	/** @var int */

@@ -2,6 +2,9 @@
 
 namespace Dxw\CIDR;
 
+/**
+ * @api
+ */
 class IPRange
 {
 	/** @var callable */
