@@ -2,6 +2,9 @@
 
 namespace Dxw\CIDR;
 
+/**
+ * @api
+ */
 class IP
 {
 	// This makes everything easy to test

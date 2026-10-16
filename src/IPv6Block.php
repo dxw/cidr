@@ -2,7 +2,7 @@
 
 namespace Dxw\CIDR;
 
-class IPv6Block extends BlockBase
+final class IPv6Block extends BlockBase
 {
 	protected static $maxSize = 128;
 }

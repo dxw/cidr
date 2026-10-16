@@ -2,11 +2,15 @@
 
 namespace Dxw\CIDR;
 
+/**
+ * @api
+ */
 class IPv6Address extends AddressBase
 {
 	/** @var int */
 	protected static $size = 128;
 
+	#[\Override]
 	public static function Make(string $address): \Dxw\Result\Result
 	{
 		if (strpos($address, ':') === false) {
