@@ -11,11 +11,6 @@
             "homepage": "https://www.dxw.com"
         }
     ],
-    "config": {
-        "platform": {
-            "php": "8.3.16"
-        }
-    },
     "autoload": {
         "psr-4": {
             "Dxw\\CIDR\\": "src/"
